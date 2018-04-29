@@ -3,6 +3,8 @@ package finance;
 import java.util.Hashtable;
 import java.util.Scanner;
 
+import human.PersonHandler;
+
 public class EventHandler {
 
 	public enum Field {
@@ -11,11 +13,13 @@ public class EventHandler {
 	}
 	private int size;
 	private Hashtable<Integer,Event> events;
+	private PersonHandler people;
 	
 	public EventHandler() {
 		super();
 		this.size = 0;
 		this.events = new Hashtable<Integer, Event>();
+		this.setPeople(new PersonHandler());
 	}
 
 	public int getSize() {
@@ -34,6 +38,14 @@ public class EventHandler {
 		this.events = events;
 	}
 	
+	public PersonHandler getPeople() {
+		return people;
+	}
+
+	public void setPeople(PersonHandler people) {
+		this.people = people;
+	}
+
 	public int addNewEvent(String name, int cost) {
 		this.events.put(this.size, new Event(name, cost));
 		this.setSize(this.size+1);

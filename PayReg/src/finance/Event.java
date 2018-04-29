@@ -8,20 +8,52 @@ public class Event {
 
 	
 	private String name;
-	private int load;
+	private int numPeople;
 	private int cost;
 	private int totalCollected;
 	private boolean isActive;
 	private Hashtable<String, TreeMap<Date,Payment>> data;
 	
+	
 	public Event(String name, int cost) {
 		super();
 		this.isActive=true;
 		this.name = name;
-		this.load = 0;
+		this.numPeople = 0;
 		this.cost = cost;
 		this.totalCollected = 0;
 		this.data = new Hashtable<String, TreeMap<Date,Payment>> ();
+	}
+	public String getName() {
+		return name;
+	}
+
+	protected void setName(String name) {
+		this.name = name;
+	}
+	
+	public int getNumPeople() {
+		return numPeople;
+	}
+
+	protected void setNumPeople(int load) {
+		this.numPeople = load;
+	}
+	
+	public int getCost() {
+		return cost;
+	}
+
+	protected void setCost(int cost) {
+		this.cost = cost;
+	}
+
+	public int getTotalCollected() {
+		return totalCollected;
+	}
+
+	protected void setTotalCollected(int totalCollected) {
+		this.totalCollected = totalCollected;
 	}
 
 	public boolean isActive() {
@@ -31,41 +63,7 @@ public class Event {
 	protected void isActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	protected void setName(String name) {
-		this.name = name;
-	}
-
-	public int getLoad() {
-		return load;
-	}
-
-	protected void setLoad(int load) {
-		this.load = load;
-	}
-
-	public int getCost() {
-		return cost;
-	}
-
-	protected void setCost(int cost) {
-		this.cost = cost;
-	}
-
-
-	public int getTotalCollected() {
-		return totalCollected;
-	}
-
-
-	protected void setTotalCollected(int totalCollected) {
-		this.totalCollected = totalCollected;
-	}
-
+	
 	public Hashtable<String, TreeMap<Date, Payment>> getData() {
 		return data;
 	}
@@ -75,8 +73,8 @@ public class Event {
 	}
 	
 	public int getCostByPerson() {
-		if(this.load==0)return -1;
-		return this.cost/this.load;
+		if(this.numPeople==0)return -1;
+		return this.cost/this.numPeople;
 	}
 	
 	public void addToCost(int addAmount) {
@@ -85,6 +83,10 @@ public class Event {
 	
 	public int getRemains() {
 		return this.getCost()-this.getTotalCollected();
+	}
+	
+	public TreeMap<Date,Payment> searchPersonPaymentList(String personId) {
+		return this.data.get(personId);
 	}
 	
 	public void addNewPayment(String personId, Date date, int amount) {
@@ -111,7 +113,7 @@ public class Event {
 
 	@Override
 	public String toString() {
-		return "[" + name + ", " + isActive + ", " + load + " personas, " + cost
+		return "[" + name + ", " + isActive + ", " + numPeople + " personas, " + cost
 				+ ", " + this.getCostByPerson() + " por persona, " + totalCollected + ", faltan "+ this.getRemains()+"]";
 	}
 	
