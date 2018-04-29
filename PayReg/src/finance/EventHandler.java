@@ -113,7 +113,7 @@ public class EventHandler {
     	for(int i=0; i<n; i++) {
     		String command = sc.nextLine().trim();
     		
-    		if(command.equals("Add")) {
+    		if(command.equals("AddEvent")) {
     			
     			String line = sc.nextLine().trim();
     			Scanner s = new  Scanner(line);
@@ -124,28 +124,28 @@ public class EventHandler {
     			int id = eventHandler.addNewEvent(name, cost);
     			System.out.println("Event was created correctly. The id is: " + id);
     			
-    		}else if(command.equals("Delete")) {
+    		}else if(command.equals("DeleteEvent")) {
     			
     			int id = Integer.parseInt(sc.nextLine().trim());
     			Event deletedEvent = eventHandler.deleteEvent(id);
     			if (deletedEvent!=null)System.out.println("Deleted event: "+deletedEvent.toString());
     			else System.out.println(id +" does not exist." );
     			
-    		}else if(command.equals("SearchId")) {
+    		}else if(command.equals("IDSearchEvent")) {
     			
     			int id = Integer.parseInt(sc.nextLine().trim());
     			Event searchedEvent = eventHandler.getEvent(id);
     			if (searchedEvent!=null)System.out.println("Event was found: "+searchedEvent.toString());
     			else System.out.println(id +" does not exist." );
     			
-    		}else if(command.equals("SearchName")) {
+    		}else if(command.equals("NameSearchEvent")) {
     			
     			String name = sc.nextLine().trim();
     			Event searchedEvent = eventHandler.searchEvent(name);
     			if (searchedEvent!=null)System.out.println("Event was found: "+searchedEvent.toString());
     			else System.out.println(name +" does not exist." );
     			
-    		}else if(command.equals("EditId")) {
+    		}else if(command.equals("IDEditEvent")) {
     			
     			String line = sc.nextLine().trim();
     			Scanner s = new  Scanner(line);
@@ -168,7 +168,7 @@ public class EventHandler {
     			if (editedEvent!=null)System.out.println("Event was edited: "+editedEvent.toString());
     			else System.out.println(id +" does not exist." );
     			
-    		}else if(command.equals("EditName")) {
+    		}else if(command.equals("NameEditEvent")) {
     			
     			String line = sc.nextLine().trim();
     			Scanner s = new  Scanner(line);
@@ -190,6 +190,8 @@ public class EventHandler {
     			Event editedEvent = eventHandler.editEvent(name, changes, fields, texts);
     			if (editedEvent!=null)System.out.println("Event was edited: "+editedEvent.toString());
     			else System.out.println(name +" does not exist." );
+    		}else if(command.equals("ManageEvent")){
+    			//TODO: Implement the functions of each event.
     		}else {
     			System.out.println("Wrong command");
     			if (sc.hasNextLine())sc.nextLine();
