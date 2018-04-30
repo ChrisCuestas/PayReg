@@ -1,5 +1,6 @@
 package finance;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.TreeMap;
@@ -13,6 +14,8 @@ public class Event {
 	private int totalCollected;
 	private boolean isActive;
 	private Hashtable<String, TreeMap<Date,Payment>> data;
+	private int totalAditionalPayments;
+	private ArrayList<Payment> aditionalPayments;
 	
 	
 	public Event(String name, int cost) {
@@ -23,6 +26,8 @@ public class Event {
 		this.cost = cost;
 		this.totalCollected = 0;
 		this.data = new Hashtable<String, TreeMap<Date,Payment>> ();
+		this.totalAditionalPayments = 0;
+		this.aditionalPayments = new ArrayList<Payment>();
 	}
 	public String getName() {
 		return name;
@@ -72,9 +77,25 @@ public class Event {
 		this.data = data;
 	}
 	
+	public ArrayList<Payment> getAditionalPayments() {
+		return this.aditionalPayments;
+	}
+
+	protected void setAditionalPayments(ArrayList<Payment> newAdPayments) {
+		this.aditionalPayments = newAdPayments;
+	}
+	
+	public int getTotalAditionalPayments() {
+		return this.totalAditionalPayments;
+	}
+	
+	public void setTotalAditionalPayments(int adtionalPayments) {
+		this.totalAditionalPayments = adtionalPayments;
+	}
+	
 	public int getCostByPerson() {
 		if(this.numPeople==0)return -1;
-		return this.cost/this.numPeople;
+		return (this.cost-this.totalAditionalPayments)/this.numPeople;
 	}
 	
 	public void addToCost(int addAmount) {
@@ -99,6 +120,14 @@ public class Event {
 			paymentList.put(date, payment);
 			this.data.put(personId, paymentList);
 		}
+		this.totalCollected+=amount;
+	}
+	
+	public void addNewAditionalPayment(String name, Date date, int amount) {
+		Payment payment = new Payment(date, amount, name);
+		this.aditionalPayments.add(payment);
+		this.totalAditionalPayments+=amount;
+		this.totalCollected+=amount;
 	}
 	
 	public Payment searchPayment(String personId, Date date) {
@@ -107,10 +136,39 @@ public class Event {
 		else return payment;
 	}
 	
-	protected Payment deletePayment(String personId, Date date) {
-		return this.data.get(personId).remove(date);
+	public Payment searchAditionalPayment(String name) {
+		for(Payment p: aditionalPayments) 
+			if(p.getPersonId().equals(name)) 
+				return p;
+		return null;
 	}
-
+	
+	public Payment searchAditionalPayment(Date date) {
+		for(Payment p: aditionalPayments) 
+			if(p.getDate().equals(date)) 
+				return p;
+		return null;
+	}
+	
+	protected Payment deletePayment(String personId, Date date) {
+		Payment deletedPayment = this.data.get(personId).remove(date);
+		this.totalCollected-=deletedPayment.getAmount();
+		return deletedPayment;
+	}
+	
+	protected Payment deleteAditionalPayment(String name) {
+		Payment deletedPayment = null;
+		for(int i=0; i<this.aditionalPayments.size();i++) {
+			if(this.aditionalPayments.get(i).getPersonId().equals(name)) {
+				deletedPayment = this.aditionalPayments.remove(i);
+				this.totalAditionalPayments+=deletedPayment.getAmount();
+				this.totalCollected-=deletedPayment.getAmount();
+				break;
+			}
+		}
+		return deletedPayment;
+	}
+	
 	@Override
 	public String toString() {
 		return "[" + name + ", " + isActive + ", " + numPeople + " personas, " + cost
