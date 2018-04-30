@@ -190,8 +190,6 @@ public class EventHandler {
     			Event editedEvent = eventHandler.editEvent(name, changes, fields, texts);
     			if (editedEvent!=null)System.out.println("Event was edited: "+editedEvent.toString());
     			else System.out.println(name +" does not exist." );
-    		}else if(command.equals("ManageEvent")){
-    			//TODO: Implement the functions of each event.
     		}else {
     			System.out.println("Wrong command");
     			if (sc.hasNextLine())sc.nextLine();

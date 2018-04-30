@@ -3,6 +3,7 @@ package finance;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 public class Event {
@@ -171,8 +172,123 @@ public class Event {
 	
 	@Override
 	public String toString() {
-		return "[" + name + ", " + isActive + ", " + numPeople + " personas, " + cost
-				+ ", " + this.getCostByPerson() + " por persona, " + totalCollected + ", faltan "+ this.getRemains()+"]";
+		return "[ Nombre:" + name + ", Activo?:" + isActive + ", " + numPeople + " personas, costo:$" + cost
+				+ ", cuota por persona:$" + this.getCostByPerson() + ", cantidad recogida:$" + totalCollected 
+				+ ", faltan $"+ this.getRemains()+ ", pagos generales adicionales:$"+this.totalAditionalPayments+"]";
 	}
+	
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+    	
+    	System.out.println("##################  PayReg  ######################");
+    	System.out.println();
+    	System.out.println("This is Event Test.");
+    	
+    	System.out.print("Name of the new event: ");
+    	String name = sc.nextLine().trim();
+    	
+    	System.out.println();
+    	System.out.print("Cost of the new event: $");
+    	int cost = Integer.parseInt(sc.nextLine().trim());
+    	System.out.println();
+    	
+    	Event event = new Event(name, cost);
+    	
+    	System.out.println("Event instantiated. Initial atributes:");
+    	System.out.println(event.toString());
+    	System.out.print("Cantidad de comandos: ");
+    	
+    	int n= Integer.parseInt(sc.nextLine().trim());
+    	System.out.println();
+    	/*for(int i=0; i<n; i++) {
+    		String command = sc.nextLine().trim();
+    		
+    		if(command.equals("AddPayment")) {
+    			
+    			String line = sc.nextLine().trim();
+    			Scanner s = new  Scanner(line);
+    			String name = s.next().trim();
+    			int cost = Integer.parseInt(s.next().trim());
+    			s.close();
+    			
+    			int id = event.addNewEvent(name, cost);
+    			System.out.println("Event was created correctly. The id is: " + id);
+    			
+    		}else if(command.equals("DeleteEvent")) {
+    			
+    			int id = Integer.parseInt(sc.nextLine().trim());
+    			Event deletedEvent = event.deleteEvent(id);
+    			if (deletedEvent!=null)System.out.println("Deleted event: "+deletedEvent.toString());
+    			else System.out.println(id +" does not exist." );
+    			
+    		}else if(command.equals("IDSearchEvent")) {
+    			
+    			int id = Integer.parseInt(sc.nextLine().trim());
+    			Event searchedEvent = event.getEvent(id);
+    			if (searchedEvent!=null)System.out.println("Event was found: "+searchedEvent.toString());
+    			else System.out.println(id +" does not exist." );
+    			
+    		}else if(command.equals("NameSearchEvent")) {
+    			
+    			String name = sc.nextLine().trim();
+    			Event searchedEvent = event.searchEvent(name);
+    			if (searchedEvent!=null)System.out.println("Event was found: "+searchedEvent.toString());
+    			else System.out.println(name +" does not exist." );
+    			
+    		}else if(command.equals("IDEditEvent")) {
+    			
+    			String line = sc.nextLine().trim();
+    			Scanner s = new  Scanner(line);
+    			int id = Integer.parseInt(s.next().trim());
+    			int changes = Integer.parseInt(s.next().trim());
+    			Field[] fields = new Field[changes];
+    			String[] texts = new String[changes];
+    			for(int k=0; k<changes;k++) {
+    				String fld = s.next().trim();
+    				Field field;
+    				if(fld.equals("COST"))field = Field.COST;
+    				else field = Field.NAME;
+    				fields[k]=field;
+    				
+    				String text = s.next().trim();
+    				texts[k]=text;
+    			}
+    			s.close();
+    			Event editedEvent = event.editEvent(id, changes, fields, texts);
+    			if (editedEvent!=null)System.out.println("Event was edited: "+editedEvent.toString());
+    			else System.out.println(id +" does not exist." );
+    			
+    		}else if(command.equals("NameEditEvent")) {
+    			
+    			String line = sc.nextLine().trim();
+    			Scanner s = new  Scanner(line);
+    			String name = s.next().trim();
+    			int changes = Integer.parseInt(s.next().trim());
+    			Field[] fields = new Field[changes];
+    			String[] texts = new String[changes];
+    			for(int k=0; k<changes;k++) {
+    				String fld = s.next().trim();
+    				Field field;
+    				if(fld.equals("COST"))field = Field.COST;
+    				else field = Field.NAME;
+    				fields[k]=field;
+    				
+    				String text = s.next().trim();
+    				texts[k]=text;
+    			}
+    			s.close();
+    			Event editedEvent = event.editEvent(name, changes, fields, texts);
+    			if (editedEvent!=null)System.out.println("Event was edited: "+editedEvent.toString());
+    			else System.out.println(name +" does not exist." );
+    		}else {
+    			System.out.println("Wrong command");
+    			if (sc.hasNextLine())sc.nextLine();
+    		}
+    	}*/
+    	sc.close();
+    	System.out.println();
+    	System.out.println("Test ended.");
+	}
+
 	
 }
