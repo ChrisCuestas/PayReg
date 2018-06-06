@@ -1,5 +1,6 @@
 package human;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -17,10 +18,12 @@ public class PersonHandler {
     }
 	
 	private int size;
+	private ArrayList<String> ids;
     private TreeMap<String, Person> people;
 
     public PersonHandler() {
         this.size=0;
+        this.ids = new ArrayList<String>(100);
         this.people= new TreeMap<String, Person>();
     }
 
@@ -32,7 +35,15 @@ public class PersonHandler {
         this.size = size;
     }
 
-    public TreeMap<String, Person> getPeople() {
+    public ArrayList<String> getIds() {
+		return ids;
+	}
+
+	protected void setIds(ArrayList<String> ids) {
+		this.ids = ids;
+	}
+
+	public TreeMap<String, Person> getPeople() {
         return people;
     }
 
@@ -40,11 +51,12 @@ public class PersonHandler {
         this.people = people;
     }
     
-    public Person addNewPerson(String firstName, String lastName1, String lastName2, long phone, String eMail, NotifWay notifWay) {
+    public Person addNewPerson(String firstName, String lastName1, String lastName2, long phone, String eMail, String notifWay) {
     	String id= buildId(firstName, lastName1, lastName2);
     	Person newPerson = new Person(id, firstName, lastName1, lastName2, phone, eMail, notifWay);
     	Person prev = this.people.putIfAbsent(id, newPerson);
     	if(prev==null) {
+    		this.ids.add(id);
     		setSize(this.size+1);
     	}
     	return prev;
@@ -58,7 +70,10 @@ public class PersonHandler {
     
     public Person deletePerson(String id) {
     	Person deletedPerson = this.people.remove(id);
-    	if (deletedPerson!=null) setSize(this.size-1);
+    	if (deletedPerson!=null) {
+    		setSize(this.size-1);
+    		this.ids.remove(this.ids.indexOf(id));
+    	}
     	return deletedPerson;
     }
     
@@ -136,13 +151,8 @@ public class PersonHandler {
     			String nWay = s.next().trim();
     			s.close();
     			
-    			NotifWay notifWay;
-    			if(nWay.equals("SMS"))notifWay=NotifWay.SMS;
-    			else if(nWay.equals("WHATSAPP")) notifWay=NotifWay.WHATSAPP;
-    			else notifWay=NotifWay.EMAIL;
-    			
     			Person prev = personHandler.addNewPerson(firstName, lastName1, lastName2, 
-    												phone, eMail, notifWay);
+    												phone, eMail, nWay);
     			if(prev==null)System.out.println("Person was added correctly");
     			else System.out.println("Could not add the new Person. "
     					+ "A Person with the same name has added: "+prev.toString());

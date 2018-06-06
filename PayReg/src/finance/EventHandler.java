@@ -1,5 +1,6 @@
 package finance;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Scanner;
 
@@ -11,13 +12,16 @@ public class EventHandler {
 		NAME,
 		COST,
 	}
+	
 	private int size;
+	private ArrayList<String> names;
 	private Hashtable<Integer,Event> events;
 	private PersonHandler people;
 	
 	public EventHandler() {
 		super();
 		this.size = 0;
+		this.names =  new ArrayList<String>(100);
 		this.events = new Hashtable<Integer, Event>();
 		this.setPeople(new PersonHandler());
 	}
@@ -48,6 +52,7 @@ public class EventHandler {
 
 	public int addNewEvent(String name, int cost) {
 		this.events.put(this.size, new Event(name, cost));
+		this.names.add(name);
 		this.setSize(this.size+1);
 		return this.size;
 	}
@@ -94,8 +99,21 @@ public class EventHandler {
 		return null;
 	}
 	
-	protected Event deleteEvent(int id) {
+	public Event deleteEvent(int id) {
 		return this.events.remove(id-1);
+	}
+	
+	public int idOfEvent(String name) {
+		return this.names.indexOf(name)+1;
+	}
+	
+	public String toString() {
+		String string="";
+		for(int i = 0; i<this.size; i++) {
+			if(this.events.get(i)!=null)
+				string += i+1 + "\t" +this.events.get(i).toString2() + "\n";
+		}
+		return string;
 	}
 	
 	public static void main(String[] args) {

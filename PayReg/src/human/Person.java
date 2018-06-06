@@ -24,14 +24,18 @@ public class Person {
     		String lastName2, 
     		long phone, 
     		String eMail, 
-    		NotifWay notifWay) {
+    		String notifWay) {
         this.id = id;
     	this.firstName = firstName;
         this.lastName1 = lastName1;
         this.lastName2 = lastName2;
         this.phone = phone;
         this.eMail = eMail;
-        this.notifWay = notifWay;
+        if(notifWay.equals("SMS"))
+			this.notifWay=NotifWay.SMS;
+		else if(notifWay.equals("WHATSAPP")) 
+			this.notifWay=NotifWay.WHATSAPP;
+		else this.notifWay=NotifWay.EMAIL;
     }
 
     public String getId() {

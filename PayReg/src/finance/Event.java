@@ -3,8 +3,9 @@ package finance;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
-import java.util.Scanner;
 import java.util.TreeMap;
+
+import human.PersonHandler;
 
 public class Event {
 
@@ -50,7 +51,7 @@ public class Event {
 		return cost;
 	}
 
-	protected void setCost(int cost) {
+	public void setCost(int cost) {
 		this.cost = cost;
 	}
 
@@ -66,7 +67,7 @@ public class Event {
 		return isActive;
 	}
 
-	protected void isActive(boolean isActive) {
+	public void isActive(boolean isActive) {
 		this.isActive = isActive;
 	}
 	
@@ -120,6 +121,7 @@ public class Event {
 			paymentList = new TreeMap<Date, Payment>();
 			paymentList.put(date, payment);
 			this.data.put(personId, paymentList);
+			this.setNumPeople(this.numPeople+1);
 		}
 		this.totalCollected+=amount;
 	}
@@ -170,14 +172,44 @@ public class Event {
 		return deletedPayment;
 	}
 	
-	@Override
-	public String toString() {
-		return "[ Nombre:" + name + ", Activo?:" + isActive + ", " + numPeople + " personas, costo:$" + cost
-				+ ", cuota por persona:$" + this.getCostByPerson() + ", cantidad recogida:$" + totalCollected 
-				+ ", faltan $"+ this.getRemains()+ ", pagos generales adicionales:$"+this.totalAditionalPayments+"]";
+	public String makeList(PersonHandler pHandler) {
+		String list = "";
+		String [] ids = new String[pHandler.getIds().size()];
+		ids = pHandler.getIds().toArray(ids);
+		for(int i=0; i<ids.length;i++) {
+			list += ids[i] + this.data.get(ids[i]).toString() + "\n";
+		}
+		return list;
 	}
 	
-	public static void main(String[] args) {
+	@Override
+	public String toString() {
+		return "Name:" + name + "\n"
+				+"Is active? " + this.yesNo(isActive) + "\n"
+				+ "There are " + numPeople + " people \n"
+				+ "The total cost is: $" + cost+ "\n" 
+				+ "Payment for each person: $" + this.getCostByPerson() + "\n"
+				+ "Total amount collected: $" + totalCollected + "\n"
+				+ "Total left: $"+ this.getRemains()+ "\n"
+				+ "Aditional money collected: $"+this.totalAditionalPayments;
+	}
+	
+	public String toString2() {
+		return "Name:" + name + "\t"
+				+"Is active: " + this.yesNo(isActive) + "\t"
+				+ "There are " + numPeople + " people \t"
+				+ "The total cost is: $" + cost+ "\t" 
+				+ "Payment for each person: $" + this.getCostByPerson() + "\t"
+				+ "Total amount collected: $" + totalCollected + "\t"
+				+ "Total left: $"+ this.getRemains()+ "\t"
+				+ "Aditional money collected: $"+this.totalAditionalPayments;
+	}
+	
+	private String yesNo(boolean isActive) {
+		if(isActive) return "yes";
+		else return "no";
+	}
+	/*public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
     	
     	System.out.println("##################  PayReg  ######################");
@@ -284,11 +316,9 @@ public class Event {
     			System.out.println("Wrong command");
     			if (sc.hasNextLine())sc.nextLine();
     		}
-    	}*/
+    	}
     	sc.close();
     	System.out.println();
     	System.out.println("Test ended.");
-	}
-
-	
+	}*/
 }
