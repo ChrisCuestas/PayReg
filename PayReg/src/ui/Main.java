@@ -11,7 +11,7 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
     	EventHandler eventHandler = new EventHandler();
-    	PersonHandler personHandler = new PersonHandler();
+    	PersonHandler personHandler = eventHandler.getPeople();
     	
     	System.out.println("##################  PayReg  ######################");
     	System.out.println();
