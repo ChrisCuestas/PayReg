@@ -3,21 +3,22 @@ package gui;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
+import finance.EventHandler;
 import javax.swing.JLabel;
 import javax.swing.SpringLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Component;
 import javax.swing.JButton;
 import javax.swing.JList;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 
-public class GUI {
+public class Home {
 
+	private EventHandler eventHandler;
+	
 	private JFrame frame;
 
 	/**
@@ -27,19 +28,21 @@ public class GUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUI window = new GUI();
+					Home window = new Home();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+		
 	}
 
 	/**
 	 * Create the application.
 	 */
-	public GUI() {
+	public Home() {
+		this.eventHandler = new EventHandler();
 		initialize();
 	}
 
@@ -79,6 +82,21 @@ public class GUI {
 		springLayout.putConstraint(SpringLayout.WEST, btnNewEvent, -147, SpringLayout.EAST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, btnNewEvent, -300, SpringLayout.SOUTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, btnNewEvent, -34, SpringLayout.EAST, frame.getContentPane());
+		btnNewEvent.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							NewEventFrame window = new NewEventFrame();
+							window.frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 		frame.getContentPane().add(btnNewEvent);
 		
 		JButton btnProperties = new JButton("Propiedades...");
@@ -87,7 +105,7 @@ public class GUI {
 		springLayout.putConstraint(SpringLayout.EAST, btnProperties, 0, SpringLayout.EAST, btnNewEvent);
 		frame.getContentPane().add(btnProperties);
 		
-		JList listOfEvents = new JList();
+		JList<Object> listOfEvents = new JList<Object>();
 		listOfEvents.setBorder(new LineBorder(new Color(0, 0, 0)));
 		listOfEvents.setBackground(Color.WHITE);
 		springLayout.putConstraint(SpringLayout.NORTH, listOfEvents, -52, SpringLayout.NORTH, lblAuthor);
