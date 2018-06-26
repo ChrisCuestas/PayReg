@@ -52,18 +52,19 @@ public class Home extends JFrame implements ActionListener {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		this.setBounds(100, 100, 567, 494);
+		this.setBounds(100, 100, 600, 500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(null);
 		
+		
 		JLabel lblPayRegTitle = new JLabel("PayReg");
-		lblPayRegTitle.setBounds(244, 37, 85, 22);
+		lblPayRegTitle.setBounds(255, 35, 90, 25);
 		lblPayRegTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblPayRegTitle.setFont(new Font("Stencil", Font.BOLD, 21));
 		this.getContentPane().add(lblPayRegTitle);
 		
 		JLabel lblDef = new JLabel("Sistema de registro de aportes");
-		lblDef.setBounds(208, 65, 156, 30);
+		lblDef.setBounds(208, 65, 180, 30);
 		lblDef.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.getContentPane().add(lblDef);
 		
