@@ -52,46 +52,36 @@ public class NewEventFrame  {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 299, 123);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		SpringLayout springLayout = new SpringLayout();
-		frame.getContentPane().setLayout(springLayout);
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 		
 		lblName = new JLabel("Nombre:");
-		springLayout.putConstraint(SpringLayout.WEST, lblName, 31, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, lblName, -31, SpringLayout.EAST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.NORTH, lblName, 15, SpringLayout.NORTH, frame.getContentPane());
+		lblName.setBounds(31, 15, 221, 14);
 		frame.getContentPane().add(lblName);
 		
 		lblCost = new JLabel("Costo:");
-		springLayout.putConstraint(SpringLayout.NORTH, lblCost, 5, SpringLayout.SOUTH, lblName);
-		springLayout.putConstraint(SpringLayout.WEST, lblCost, 0, SpringLayout.WEST, lblName);
-		springLayout.putConstraint(SpringLayout.EAST, lblCost, 0, SpringLayout.EAST, lblName);
+		lblCost.setBounds(31, 34, 221, 14);
 		frame.getContentPane().add(lblCost);
 		
 		textFieldName = new JTextField();
-		springLayout.putConstraint(SpringLayout.WEST, textFieldName, 100, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.NORTH, textFieldName, 0, SpringLayout.NORTH, lblName);
-		springLayout.putConstraint(SpringLayout.SOUTH, textFieldName, 0, SpringLayout.SOUTH, lblName);
+		textFieldName.setBounds(100, 15, 86, 14);
 		frame.getContentPane().add(textFieldName);
 		textFieldName.setColumns(10);
 		
 		textFieldCost = new JTextField();
-		springLayout.putConstraint(SpringLayout.WEST, textFieldCost, 100, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.NORTH, textFieldCost, 0, SpringLayout.NORTH, lblCost);
-		springLayout.putConstraint(SpringLayout.SOUTH, textFieldCost, 0, SpringLayout.SOUTH, lblCost);
+		textFieldCost.setBounds(100, 34, 46, 14);
 		frame.getContentPane().add(textFieldCost);
 		textFieldCost.setColumns(5);
 		
 		btnNewEvent = new JButton("Crear");
-		springLayout.putConstraint(SpringLayout.NORTH, btnNewEvent, 6, SpringLayout.SOUTH, lblCost);
-		springLayout.putConstraint(SpringLayout.EAST, btnNewEvent, -10, SpringLayout.EAST, frame.getContentPane());
+		btnNewEvent.setBounds(214, 54, 59, 23);
 		btnNewEvent.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String name = "Conv";
-				int cost = Integer.parseInt("15");
+				//String name = "Conv";
+				//int cost = Integer.parseInt("15");
 				
-				int id = eventHandler.addNewEvent(name, cost);
+				//int id = eventHandler.addNewEvent(name, cost);
 			}
 		});
 		
