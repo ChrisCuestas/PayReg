@@ -2,21 +2,21 @@ package gui;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import finance.EventHandler;
-import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Component;
-import javax.swing.JButton;
-import javax.swing.JList;
-import java.awt.Color;
-import javax.swing.border.LineBorder;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 public class Home extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
 	
 	private EventHandler eventHandler;
 	
@@ -44,7 +44,13 @@ public class Home extends JFrame implements ActionListener {
 	 * Create the application.
 	 */
 	public Home() {
-		super("PAYREG");
+		super("PayReg: Home");
+		setPreferredSize(new Dimension(250, 330));
+		setMinimumSize(new Dimension(250, 330));
+		setMaximumSize(new Dimension(250, 330));
+		setBounds(100, 100, 250, 330);
+		setResizable(false);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		initialize();
 	}
 
@@ -52,28 +58,28 @@ public class Home extends JFrame implements ActionListener {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		this.setBounds(100, 100, 600, 500);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.getContentPane().setLayout(null);
-		
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
 		JLabel lblPayRegTitle = new JLabel("PayReg");
-		lblPayRegTitle.setBounds(255, 35, 90, 25);
+		lblPayRegTitle.setBounds(82, 40, 86, 20);
 		lblPayRegTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblPayRegTitle.setFont(new Font("Stencil", Font.BOLD, 21));
-		this.getContentPane().add(lblPayRegTitle);
+		contentPane.add(lblPayRegTitle);
 		
 		JLabel lblDef = new JLabel("Sistema de registro de aportes");
-		lblDef.setBounds(208, 65, 180, 30);
+		lblDef.setBounds(30, 65, 190, 14);
 		lblDef.setAlignmentX(Component.CENTER_ALIGNMENT);
-		this.getContentPane().add(lblDef);
+		contentPane.add(lblDef);
 		
 		JLabel lblAuthor = new JLabel("Author: Christian Camilo Cuestas");
-		lblAuthor.setBounds(10, 432, 188, 14);
-		this.getContentPane().add(lblAuthor);
+		lblAuthor.setBounds(10, 280, 224, 14);
+		contentPane.add(lblAuthor);
 		
 		JButton btnNewEvent = new JButton("Nuevo Evento");
-		btnNewEvent.setBounds(404, 133, 113, 23);
+		btnNewEvent.setBounds(45, 120, 160, 20);
 		btnNewEvent.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -90,25 +96,35 @@ public class Home extends JFrame implements ActionListener {
 				});
 			}
 		});
-		this.getContentPane().add(btnNewEvent);
+		contentPane.add(btnNewEvent);
 		
-		JButton btnProperties = new JButton("Propiedades...");
-		btnProperties.setBounds(404, 182, 113, 23);
-		this.getContentPane().add(btnProperties);
 		
-		JList<Object> listOfEvents = new JList<Object>();
-		listOfEvents.setBounds(31, 380, 305, -233);
-		listOfEvents.setBorder(new LineBorder(new Color(0, 0, 0)));
-		listOfEvents.setBackground(Color.WHITE);
-		this.getContentPane().add(listOfEvents);
 		
-		JButton btnManageEvent = new JButton("Administrar...");
-		btnManageEvent.setBounds(404, 228, 113, 23);
-		this.getContentPane().add(btnManageEvent);
+		JButton btnManageEvent = new JButton("Administrar Evento...");
+		btnManageEvent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnManageEvent.setBounds(45, 148, 160, 23);
+		contentPane.add(btnManageEvent);
 		
-		JButton btnEliminar = new JButton("Eliminar...");
-		btnEliminar.setBounds(404, 316, 113, 23);
-		this.getContentPane().add(btnEliminar);
+		JButton btnDeleteEvent = new JButton("Eliminar Evento...");
+		btnDeleteEvent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnDeleteEvent.setBounds(45, 220, 160, 20);
+		contentPane.add(btnDeleteEvent);
+		
+		JLabel lblLogInUser = new JLabel("Sesión iniciada como:");
+		lblLogInUser.setBounds(10, 11, 153, 14);
+		contentPane.add(lblLogInUser);
+		
+		JLabel lblUser = new JLabel("User");
+		lblUser.setBounds(140, 11, 46, 14);
+		contentPane.add(lblUser);
+		
+		contentPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{ btnNewEvent, btnManageEvent, btnDeleteEvent}));
 	}
 
 	@Override

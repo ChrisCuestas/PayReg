@@ -2,19 +2,15 @@ package gui;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
+
 import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import java.awt.Color;
 import java.awt.Window.Type;
 import java.awt.Dimension;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 public class LogIn extends JFrame {
 
@@ -46,53 +42,68 @@ public class LogIn extends JFrame {
 	 * Create the frame.
 	 */
 	public LogIn() {
-		setType(Type.UTILITY);
-		setTitle("PayReg: LogIn");
-		setForeground(new Color(250, 250, 210));
-		setBackground(new Color(0, 255, 127));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 258, 270);
+		super("PayReg: LogIn");
+		setPreferredSize(new Dimension(250, 330));
+		setMinimumSize(new Dimension(250, 330));
+		setMaximumSize(new Dimension(250, 330));
+		setBounds(100, 100, 250, 330);
+		setResizable(false);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		initialize();
+		}
+	
+	private void initialize() {
 		contentPane = new JPanel();
-		contentPane.setForeground(new Color(255, 255, 255));
-		contentPane.setBackground(new Color(245, 255, 250));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JLabel lblPayRegTitle = new JLabel("PayReg");
+		lblPayRegTitle.setBounds(82, 40, 86, 20);
+		lblPayRegTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblPayRegTitle.setFont(new Font("Stencil", Font.BOLD, 21));
+		contentPane.add(lblPayRegTitle);
+		
+		JLabel lblDef = new JLabel("Sistema de registro de aportes");
+		lblDef.setBounds(30, 65, 190, 14);
+		lblDef.setAlignmentX(Component.CENTER_ALIGNMENT);
+		contentPane.add(lblDef);
+		
+		JLabel lblAuthor = new JLabel("Author: Christian Camilo Cuestas");
+		lblAuthor.setBounds(10, 280, 224, 14);
+		contentPane.add(lblAuthor);
+		
 		JLabel lblCredentials = new JLabel("Credentials:");
 		lblCredentials.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCredentials.setBounds(22, 59, 94, 26);
+		lblCredentials.setBounds(16, 103, 94, 26);
 		contentPane.add(lblCredentials);
 		
 		userNameField = new JTextField();
-		userNameField.setBounds(114, 104, 110, 20);
+		userNameField.setBounds(101, 140, 110, 20);
 		contentPane.add(userNameField);
 		userNameField.setColumns(10);
 		
 		JLabel lblUser = new JLabel("User:");
 		lblUser.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblUser.setBounds(58, 107, 46, 14);
+		lblUser.setBounds(45, 143, 46, 14);
 		contentPane.add(lblUser);
 		
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPassword.setBounds(36, 149, 68, 14);
+		lblPassword.setBounds(23, 185, 68, 14);
 		contentPane.add(lblPassword);
 		
 		passwordField = new JTextField();
-		passwordField.setBounds(114, 146, 110, 20);
+		passwordField.setBounds(101, 182, 110, 20);
 		contentPane.add(passwordField);
 		passwordField.setColumns(10);
 		
 		JButton btnLogIn = new JButton("Log In");
-		btnLogIn.setBounds(87, 203, 89, 23);
+		btnLogIn.setBounds(74, 239, 89, 23);
 		contentPane.add(btnLogIn);
 		
-		JLabel lblPayreg = new JLabel("PayReg");
-		lblPayreg.setFont(new Font("Arial Black", Font.BOLD, 15));
-		lblPayreg.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPayreg.setBounds(22, 11, 68, 33);
-		contentPane.add(lblPayreg);
+		
+		
 		contentPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{userNameField, passwordField, btnLogIn}));
 	}
 }
