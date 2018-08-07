@@ -7,8 +7,6 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.Font;
 import java.awt.Component;
-import java.awt.Color;
-import java.awt.Window.Type;
 import java.awt.Dimension;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
