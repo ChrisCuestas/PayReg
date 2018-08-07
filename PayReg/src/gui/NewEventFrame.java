@@ -51,30 +51,30 @@ public class NewEventFrame  {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 299, 123);
+		frame.setBounds(100, 100, 431, 406);
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		lblName = new JLabel("Nombre:");
-		lblName.setBounds(31, 15, 221, 14);
+		lblName.setBounds(31, 136, 74, 14);
 		frame.getContentPane().add(lblName);
 		
 		lblCost = new JLabel("Costo:");
-		lblCost.setBounds(31, 34, 221, 14);
+		lblCost.setBounds(31, 161, 74, 14);
 		frame.getContentPane().add(lblCost);
 		
 		textFieldName = new JTextField();
-		textFieldName.setBounds(100, 15, 86, 14);
+		textFieldName.setBounds(100, 136, 86, 14);
 		frame.getContentPane().add(textFieldName);
 		textFieldName.setColumns(10);
 		
 		textFieldCost = new JTextField();
-		textFieldCost.setBounds(100, 34, 46, 14);
+		textFieldCost.setBounds(100, 161, 86, 14);
 		frame.getContentPane().add(textFieldCost);
 		textFieldCost.setColumns(5);
 		
 		btnNewEvent = new JButton("Crear");
-		btnNewEvent.setBounds(214, 54, 59, 23);
+		btnNewEvent.setBounds(127, 209, 59, 23);
 		btnNewEvent.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
